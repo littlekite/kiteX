@@ -4,13 +4,13 @@
 // https://opensource.org/licenses/MIT
 use crate::states::AppState;
 use bevy::prelude::{
-    in_state, App, States,IntoSystemSetConfig, IntoSystemConfigs, OnEnter, Update, Plugin, Startup,
+    App, OnEnter, Plugin,
 };
 
 pub mod states;
 mod systems;
 use self::{
-     systems::{game_setup}, states::GameState
+     systems::game_setup, states::GameState
 };
 
 
@@ -18,6 +18,8 @@ use super::{
     debug::DebugPlugin,
     camera::CameraPlugin, 
     tilemap::TilemapPlugin,
+    player::PlayerPlugin,
+    animation::AnimationPlugin,
     //enemy::EnemyPlugin,
 };
 
@@ -28,6 +30,8 @@ impl Plugin for GamePlugin {
         .add_plugins(CameraPlugin)
         .add_plugins(DebugPlugin)
         .add_plugins(TilemapPlugin)
+        .add_plugins(PlayerPlugin)
+        .add_plugins(AnimationPlugin)
         .add_systems(OnEnter(AppState::InGame), game_setup);
     }
 }

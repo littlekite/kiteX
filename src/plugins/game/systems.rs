@@ -13,12 +13,11 @@ use bevy::{
 use crate::plugins::{
     camera::bundles::GameCameraBundle,
     atlas::resources::GameAtlases,
-    tilemap::bundles::TilemapBundle
+    tilemap::bundles::TilemapBundle,
+    player::bundles::PlayerBundle
 };
 
-use super::{
-    states::{GameState},
-};
+use super::states::{GameState};
 
 pub fn game_setup(
     mut commands: Commands,
@@ -27,6 +26,19 @@ pub fn game_setup(
 ) {
 
     commands.spawn(GameCameraBundle::new(0.2));
+
+    commands.spawn(PlayerBundle::new(
+        game_atlases.player.clone(),
+        Vec2 { x: 32.0, y: 32.0 },
+        Vec2 { x: 112.0, y: 100.0 },
+        15.0,
+        65.0,
+        18.0,
+        10.0,
+        90.0,
+        150.0,
+        0.2,
+    ));
 
     commands
         .spawn(TilemapBundle::new(

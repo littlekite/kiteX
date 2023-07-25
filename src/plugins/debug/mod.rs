@@ -5,17 +5,12 @@
 use bevy::prelude::Plugin;
 use bevy_inspector_egui::quick::{StateInspectorPlugin, WorldInspectorPlugin};
 
-use bevy_inspector_egui::{prelude::*, bevy_inspector, DefaultInspectorConfigPlugin};
+
 
 use crate::states::AppState;
-use bevy_egui::*;
 
-use crate::plugins::{
-    game::states::GameState
-};
+use crate::plugins::game::states::GameState;
 
-use bevy::prelude::*;
-use egui::containers::Frame;
 pub struct DebugPlugin;
 
 impl Plugin for DebugPlugin {

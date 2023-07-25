@@ -4,7 +4,6 @@
 // https://opensource.org/licenses/MIT
 use bevy::prelude::{in_state, App, IntoSystemConfigs, Update, Plugin};
 
-use crate::states::AppState;
 
 use self::systems::{tiles::spawn_tiles,colliders::spawn_colliders};
 
