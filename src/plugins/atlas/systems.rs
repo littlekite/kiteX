@@ -26,9 +26,9 @@ pub(super) fn build_atlases(
 
     let texture_atlas_tileset = TextureAtlas::from_grid(
         game_assets.image_tileset.clone(),
-        Vec2::new(16.0, 16.0),
-        5,
-        6,
+        Vec2::new(32.0, 32.0),
+        20,
+        8,
         None,
         None,
     );

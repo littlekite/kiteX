@@ -12,7 +12,7 @@ mod systems;
 use self::{
      systems::game_setup, states::GameState
 };
-
+use bevy_xpbd_2d::{prelude::*,math::*};
 
 use super::{
     debug::DebugPlugin,
@@ -32,6 +32,8 @@ impl Plugin for GamePlugin {
         .add_plugins(TilemapPlugin)
         .add_plugins(PlayerPlugin)
         .add_plugins(AnimationPlugin)
+        .add_plugins(PhysicsPlugins::default())
+        .insert_resource(Gravity(Vector::NEG_Y*0.1))
         .add_systems(OnEnter(AppState::InGame), game_setup);
     }
 }

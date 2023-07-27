@@ -18,6 +18,8 @@ use crate::plugins::{
     tilemap::components::TilemapColliders,
 };
 
+use bevy_xpbd_2d::prelude::*;
+
 pub fn player_movement_input(
     keyboard: Res<Input<KeyCode>>,
     mut query: Query<(&mut PlayerState, &mut PlayerDirection), With<Player>>,
@@ -136,8 +138,8 @@ pub fn player_movement(
         let mut new_position_horizontal = player_transform.translation;
         new_position_horizontal.x += player_velocity.0.x * delta.delta_seconds();
         let mut new_position_vertical = player_transform.translation;
-        new_position_vertical.y += player_velocity.0.y * delta.delta_seconds();
-
+        // new_position_vertical.y += player_velocity.0.y * delta.delta_seconds();
+        new_position_vertical.y = 0.;
         // Calculate separate bounding-boxes for each axis-movement.
         let new_player_rect_horizontal =
             Rect::from_center_size(new_position_horizontal.truncate(), player_size.0 / 2.0);
@@ -146,6 +148,7 @@ pub fn player_movement(
 
 
         // Check for collision with `TilemapColliders`.
+        
         if let Ok(tilemap_colliders) = tilemap_collider_query.get_single() {
             for tilemap_collider_rect in tilemap_colliders.0.iter() {
                 if !tilemap_collider_rect
@@ -163,6 +166,7 @@ pub fn player_movement(
                 }
             }
         }
+    
 
         // Moving the player.
         player_transform.translation += player_velocity.0.extend(0.0) * delta.delta_seconds();

@@ -1,4 +1,4 @@
-use crate::plugins::{player::components::Player};
+
 
 // Copyright (c) 2023 Paul
 //
@@ -9,7 +9,7 @@ use super::{
     events::AnimationStartEvent,
 };
 use bevy::{
-    prelude::{Entity, EventReader, Query, Res, Without, Children, Transform, With, Quat},
+    prelude::{Entity, EventReader, Query, Res},
     sprite::TextureAtlasSprite,
     time::Time,
 };
