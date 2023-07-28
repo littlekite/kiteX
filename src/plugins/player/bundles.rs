@@ -16,7 +16,7 @@ use super::{
         Player, PlayerDirection, PlayerHealth, PlayerHealthMax, PlayerIsStunnedTimer,
         PlayerMagicAttackDamage, PlayerMagicAttackSpeed, PlayerMagicAttackTimer,
         PlayerMeleeAttackDamage, PlayerMeleeAttackHitPosition, PlayerMeleeAttackTimer, PlayerSize,
-        PlayerVelocity, PlayerWalkSpeed,
+        PlayerVelocity, PlayerWalkSpeed, TilemapRoad,
     },
     states::PlayerState,
 };
@@ -43,6 +43,7 @@ pub struct PlayerBundle {
     animation: AnimationBundle,
     #[bundle()]
     sprite: SpriteSheetBundle,
+    road: TilemapRoad
 }
 
 impl PlayerBundle {
@@ -57,13 +58,14 @@ impl PlayerBundle {
         magic_speed: f32,
         health: f32,
         seconds_stunned: f32,
+        walkroad:Vec<Vec<f32>>
     ) -> Self {
         PlayerBundle {
             tag: Player,
             name: Name::new("Player"),
             size: PlayerSize(size),
             state: PlayerState::Idle,
-            direction: PlayerDirection::Down,
+            direction: PlayerDirection::Right,
             walk_speed: PlayerWalkSpeed(walk_speed),
             health: PlayerHealth(health),
             health_max: PlayerHealthMax(health),
@@ -192,7 +194,8 @@ impl PlayerBundle {
                 texture_atlas: texture.clone(),
                 transform: Transform::from_xyz(position.x, position.y, z_index),
                 ..default()
-            }
+            },
+            road:TilemapRoad(walkroad)
         }
     }
 }

@@ -41,21 +41,98 @@ pub fn spawn_colliders(
                 tile_center_in_world,
                 tilemap_tile_size.0,
             ));
-
-            // Draw the colliders in debug-mode.
-             #[cfg(debug_assertions)]
-            commands
-                .spawn(SpriteBundle {
-                    sprite: Sprite {
-                        color: Color::RED.with_a(100.0),
-                        custom_size: Some(Vec2::from(tilemap_tile_size.0)),
-                        ..default()
-                    },
-                    transform: Transform::from_translation(tile_center_in_world.extend(50.0)),
-                    ..default()
-                })
-                .insert(Name::from("Collider"));
             
         }
     }
+    /*
+    // Draw the colliders in debug-mode.
+    #[cfg(debug_assertions)]
+    commands
+        .spawn(SpriteBundle {
+            sprite: Sprite {
+                color: Color::RED.with_a(100.0),
+                custom_size: Some(Vec2::new(2.0,2.0)),
+                ..default()
+            },
+            transform:Transform::from_xyz(200.0,155.0,100.),
+            ..default()
+        })
+        .insert(Name::from("Collider1"));
+        // Draw the colliders in debug-mode.
+    #[cfg(debug_assertions)]
+    commands
+            .spawn(SpriteBundle {
+                sprite: Sprite {
+                    color: Color::RED.with_a(100.0),
+                    custom_size: Some(Vec2::new(2.0,2.0)),
+                    ..default()
+                },
+                transform:Transform::from_xyz(275.0,155.0,100.),
+                ..default()
+            })
+            .insert(Name::from("Collider2"));
+
+    #[cfg(debug_assertions)]
+    commands
+            .spawn(SpriteBundle {
+                sprite: Sprite {
+                    color: Color::RED.with_a(100.0),
+                    custom_size: Some(Vec2::new(2.0,2.0)),
+                    ..default()
+                },
+                transform:Transform::from_xyz(290.0,145.0,100.),
+                ..default()
+            })
+            .insert(Name::from("Collider3"));
+
+    #[cfg(debug_assertions)]
+    commands
+            .spawn(SpriteBundle {
+                sprite: Sprite {
+                    color: Color::RED.with_a(100.0),
+                    custom_size: Some(Vec2::new(2.0,2.0)),
+                    ..default()
+                },
+                transform:Transform::from_xyz(310.0,125.0,100.),
+                ..default()
+            })
+            .insert(Name::from("Collider2"));
+    #[cfg(debug_assertions)]
+    commands
+            .spawn(SpriteBundle {
+                sprite: Sprite {
+                    color: Color::RED.with_a(100.0),
+                    custom_size: Some(Vec2::new(2.0,2.0)),
+                    ..default()
+                },
+                transform:Transform::from_xyz(330.0,110.0,100.),
+                ..default()
+            })
+            .insert(Name::from("Collider3"));
+    #[cfg(debug_assertions)]
+        commands
+                .spawn(SpriteBundle {
+                    sprite: Sprite {
+                        color: Color::RED.with_a(100.0),
+                        custom_size: Some(Vec2::new(2.0,2.0)),
+                        ..default()
+                    },
+                    transform:Transform::from_xyz(450.0,110.0,100.),
+                    ..default()
+                })
+                .insert(Name::from("Collider3"));
+    #[cfg(debug_assertions)]
+            commands
+                    .spawn(SpriteBundle {
+                        sprite: Sprite {
+                            color: Color::RED.with_a(100.0),
+                            custom_size: Some(Vec2::new(2.0,2.0)),
+                            ..default()
+                        },
+                        transform:Transform::from_xyz(500.0,135.0,100.),
+                        ..default()
+                    })
+                    .insert(Name::from("Collider3"));
+    */
+    
 }

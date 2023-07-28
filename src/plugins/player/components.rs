@@ -51,10 +51,10 @@ pub struct PlayerIsStunnedTimer(pub Timer);
 #[derive(Component, Default, Debug, Clone, Copy, PartialEq, Eq, Reflect)]
 pub enum PlayerDirection {
     #[default]
-    Up,
+    Right,
     Down,
     Left,
-    Right,
+    Up,
     UpLeft,
     UpRight,
     DownLeft,
@@ -69,3 +69,6 @@ pub struct PlayerDebuffNoMagic;
 
 #[derive(Component, Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct PlayerDebuffNoDamageAgainstBlobs;
+
+#[derive(Component, Default, Debug, Clone, PartialEq)]
+pub struct TilemapRoad(pub Vec<Vec<f32>>);

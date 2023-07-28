@@ -27,7 +27,7 @@ pub fn game_setup(
     mut game_state: ResMut<NextState<GameState>>
 ) {
 
-    commands.spawn(GameCameraBundle::new(0.8));
+    commands.spawn(GameCameraBundle::new(0.3));
   
     commands
     .spawn((PlayerBundle::new(
@@ -35,7 +35,7 @@ pub fn game_setup(
         Vec2 { x: 32.0, 
             y: 32.0 },
         //Vec2 { x: 230.0, y: 150.0 },
-        Vec2 { x: 230.0, y: 166.0 }, // 150+16(脚)
+        Vec2 { x: 200.0, y: 164.0 }, // 150+16(脚)
         15.0,
         65.0,
         18.0,
@@ -43,8 +43,18 @@ pub fn game_setup(
         90.0,
         150.0,
         0.2,
+        vec![
+            vec![200.0,155.0,275.,155.],
+            vec![275.0,155.0,290.0,145.0],
+            vec![290.0,145.0,310.0,125.0],
+            vec![310.0,125.0,330.0,110.0],
+            vec![330.0,110.0,450.0,110.0],
+            vec![450.0,110.0,500.0,135.0],
+            vec![500.0,135.0,600.,135.],    
+        ]
     )));
 
+    //let points = vec![Point{x: 1, y: 2}, Point{x: 3, y: 4}, Point{x: 5, y: 6}];
 
     commands
         .spawn(TilemapBundle::new(

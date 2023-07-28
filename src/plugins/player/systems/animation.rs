@@ -41,10 +41,15 @@ pub fn player_animation(
     };
     //println!("{:?}",state_part_clip_name);
     let direction_part_clip_name = match player_direction {
-        PlayerDirection::Up | PlayerDirection::UpLeft | PlayerDirection::UpRight => "up",
-        PlayerDirection::Down | PlayerDirection::DownLeft | PlayerDirection::DownRight => "down",
-        PlayerDirection::Left => "left",
-        PlayerDirection::Right => "right",
+        //PlayerDirection::Up | PlayerDirection::UpLeft | PlayerDirection::UpRight => "up",
+        //PlayerDirection::Down | PlayerDirection::DownLeft | PlayerDirection::DownRight => "down",
+        //PlayerDirection::Left => "left",
+        //PlayerDirection::Right => "right",
+        PlayerDirection::Left | PlayerDirection::UpLeft | PlayerDirection::UpRight => "left",
+        PlayerDirection::Right | PlayerDirection::DownLeft | PlayerDirection::DownRight => "right",
+        PlayerDirection::Up =>  "up",
+        PlayerDirection::Down =>  "down",
+        
     };
 
     // Creating the clips name in format: "[state]_[direction]" (e.g: "idle_left", "walk_up")

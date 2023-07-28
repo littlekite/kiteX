@@ -11,7 +11,7 @@ use crate::plugins::{
     player::{
         components::{
             Player, PlayerDebuffSlowWalk, PlayerDirection, PlayerSize, PlayerVelocity,
-            PlayerWalkSpeed,
+            PlayerWalkSpeed, TilemapRoad,
         },
         states::PlayerState,
     },
@@ -22,13 +22,13 @@ use bevy_xpbd_2d::prelude::*;
 
 pub fn player_movement_input(
     keyboard: Res<Input<KeyCode>>,
-    mut query: Query<(&mut PlayerState, &mut PlayerDirection), With<Player>>,
+    mut query: Query<(&mut PlayerState, &mut PlayerDirection,&TilemapRoad,&Transform), With<Player>>,
 ) {
     if query.is_empty() {
         return;
     }
 
-    let (mut player_state, mut player_direction) = query
+    let (mut player_state, mut player_direction,road,trans) = query
         .get_single_mut()
         .expect("0 or more than 1 `Player` found.");
 
@@ -46,28 +46,76 @@ pub fn player_movement_input(
 
     let mut new_player_direction = *player_direction;
     if keyboard.pressed(KeyCode::Left) {
-        new_player_direction = PlayerDirection::Left;
+        let px = trans.translation.x;
+        let py = trans.translation.y;
+        let mut income = 1;//未进入范围
+        for sub_vec in &road.0{
+            let next_x =  sub_vec[0];
+            let next_y =  sub_vec[1];
+            if sub_vec[2] - px < 1.{ //进入范围
+                println!("{}",py);
+                println!("{}",next_y);
+                income = 2;
+                if sub_vec[3] == next_y { //Y轴没有变化
+                    new_player_direction = PlayerDirection::Left;
+                } else {
+                    if (next_y+9.) < py { //
+                        println!("ww1");
+                        new_player_direction = PlayerDirection::DownLeft;
+                    }
+                    if (next_y+9.) > py { //
+                        println!("ss2");
+                        new_player_direction = PlayerDirection::UpLeft;
+                    }
+                }
+            }  
+        }
+        if income == 1{
+            new_player_direction = PlayerDirection::Left;
+        }
     } else if keyboard.pressed(KeyCode::Right) {
-        new_player_direction = PlayerDirection::Right;
-    }
-    if keyboard.pressed(KeyCode::Up) {
-        if keyboard.pressed(KeyCode::Left) {
-            new_player_direction = PlayerDirection::UpLeft;
-        } else if keyboard.pressed(KeyCode::Right) {
-            new_player_direction = PlayerDirection::UpRight;
-        } else {
-            new_player_direction = PlayerDirection::Up;
+        //获取坐标判断位置
+        //new_player_direction = PlayerDirection::DownRight;
+        //new_player_direction = PlayerDirection::DownLeft;
+        //new_player_direction = PlayerDirection::UpRight;
+        //new_player_direction = PlayerDirection::UpLeft;
+        let px = trans.translation.x;
+        let py = trans.translation.y;
+        let mut income = 1;//未进入范围
+        for sub_vec in &road.0{
+            let next_x =  sub_vec[2];
+            let next_y =  sub_vec[3];
+            if px == sub_vec[0] { //启动
+                if (next_y+9.) == py { //直走
+                    new_player_direction = PlayerDirection::Right;
+                }
+                if (next_y+9.) > py { //斜走
+                    new_player_direction = PlayerDirection::DownRight;
+                }
+            }
+            if sub_vec[0] - px < 1.{ //进入X范围
+                println!("{}",py);
+                println!("{}",next_y);
+                income = 2;
+                if sub_vec[1] == next_y { //Y轴没有变化
+                    new_player_direction = PlayerDirection::Right;
+                } else {
+                    if (next_y+9.) < py { //
+                        println!("ww");
+                        new_player_direction = PlayerDirection::DownRight;
+                    }
+                    if (next_y+9.) > py{ //
+                        println!("ss");
+                        new_player_direction = PlayerDirection::UpRight;
+                    }
+                }
+            }
+              
         }
-    } else if keyboard.pressed(KeyCode::Down) {
-        if keyboard.pressed(KeyCode::Left) {
-            new_player_direction = PlayerDirection::DownLeft;
-        } else if keyboard.pressed(KeyCode::Right) {
-            new_player_direction = PlayerDirection::DownRight;
-        } else {
-            new_player_direction = PlayerDirection::Down;
+        if income == 1{
+            new_player_direction = PlayerDirection::Right;
         }
     }
-
     if new_player_direction != *player_direction {
         *player_direction = new_player_direction;
     }
@@ -82,6 +130,7 @@ pub fn player_movement(
             &PlayerDirection,
             &PlayerWalkSpeed,
             &PlayerSize,
+            &TilemapRoad
         ),
         With<Player>,
     >,
@@ -96,6 +145,7 @@ pub fn player_movement(
         player_direction,
         player_walk_speed,
         player_size,
+        road,
     ) = player_query
         .get_single_mut()
         .expect("0 or more than 1 `Player` found.");
@@ -114,13 +164,13 @@ pub fn player_movement(
             PlayerDirection::DownRight => Vec2::new(1.0, -1.0).normalize(),
         };
 
-        // Acceleration.
-        let walk_speed = match debuff_slow_walk {
-            false => player_walk_speed.0,
-            true => player_walk_speed.0 / 2.0,
-        };
+
         player_velocity.0 += move_vector * 2000.0 * delta.delta_seconds();
-        player_velocity.0 = player_velocity.0.clamp_length_max(walk_speed);
+        player_velocity.0 = player_velocity.0.clamp_length_max(64.);
+
+
+
+
     } else if player_velocity.0 != Vec2::ZERO {
         // Deceleration.
         let old_signum = player_velocity.0.signum();
@@ -169,6 +219,7 @@ pub fn player_movement(
     
 
         // Moving the player.
+        //player_velocity.0.y = 0.;
         player_transform.translation += player_velocity.0.extend(0.0) * delta.delta_seconds();
     }
 }

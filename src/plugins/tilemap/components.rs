@@ -33,3 +33,6 @@ pub struct TilemapSolidTextureIndices(pub Vec<u32>);
 
 #[derive(Component, Default, Debug, Clone, PartialEq)]
 pub struct TilemapColliders(pub Vec<Rect>);
+
+
+
