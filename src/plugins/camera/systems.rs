@@ -46,12 +46,15 @@ pub fn update_game_camera(
         let right_limit = right - half_width;
         //let x = player_transform.translation.x.max(left_limit).min(right_limit);    
         let x = player_transform.translation.x;
+        
 
+        
         game_camera_transform.translation = Vec3::new(
-            x,
-            y,
+            0.,
+            320.,
             game_camera_transform.translation.z,
         );
+         
         
         
     

@@ -10,7 +10,7 @@ pub struct GameAssets {
     // Images.
     #[asset(path = "images/player.png")]
     pub image_player: Handle<Image>,
-    #[asset(path = "images/new.png")]
+    #[asset(path = "images/new3.png")]
     pub image_tileset: Handle<Image>,
     #[asset(path = "images/enemy.png")]
     pub image_enemy: Handle<Image>,

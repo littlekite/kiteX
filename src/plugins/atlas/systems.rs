@@ -28,7 +28,7 @@ pub(super) fn build_atlases(
         game_assets.image_tileset.clone(),
         Vec2::new(32.0, 32.0),
         20,
-        8,
+        10,
         None,
         None,
     );

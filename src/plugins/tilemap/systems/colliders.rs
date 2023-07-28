@@ -3,8 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 use bevy::{
-    prelude::{Added, Query, Rect, Transform, With},
-    sprite::TextureAtlasSprite,
+    prelude::*,
+    sprite::{TextureAtlasSprite, SpriteBundle, Sprite},
 };
 
 use crate::plugins::tilemap::components::{
@@ -12,6 +12,7 @@ use crate::plugins::tilemap::components::{
 };
 
 pub fn spawn_colliders(
+    mut commands: Commands,
     mut tilemap_query: Query<
         (
             &mut TilemapColliders,
@@ -42,7 +43,7 @@ pub fn spawn_colliders(
             ));
 
             // Draw the colliders in debug-mode.
-            /* #[cfg(debug_assertions)]
+             #[cfg(debug_assertions)]
             commands
                 .spawn(SpriteBundle {
                     sprite: Sprite {
@@ -53,7 +54,8 @@ pub fn spawn_colliders(
                     transform: Transform::from_translation(tile_center_in_world.extend(50.0)),
                     ..default()
                 })
-                .insert(Name::from("Collider")); */
+                .insert(Name::from("Collider"));
+            
         }
     }
 }
