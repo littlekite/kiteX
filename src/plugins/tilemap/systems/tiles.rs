@@ -10,7 +10,7 @@ use bevy::{
 
 use crate::plugins::tilemap::components::{
     Tilemap, TilemapMapSize, TilemapTextureHandle, TilemapTextureIndices, TilemapTile,
-    TilemapTileColor, TilemapTileSize,
+    TilemapTileColor, TilemapTileSize, TilemapZindex,
 };
 
 pub fn spawn_tiles(
@@ -23,6 +23,7 @@ pub fn spawn_tiles(
             &TilemapTileSize,
             &TilemapTextureIndices,
             &TilemapTileColor,
+            &TilemapZindex
         ),
         Added<Tilemap>,
     >,
@@ -34,6 +35,7 @@ pub fn spawn_tiles(
         tilemap_tile_size,
         tilemap_texture_indices,
         tilemap_tile_color,
+        tilemap_index
     ) in tilemap_query.iter()
     {
         println!("bbb");
@@ -56,7 +58,7 @@ pub fn spawn_tiles(
                         transform: Transform::from_xyz(
                             x as f32 * tilemap_tile_size.0.x,
                             y as f32 * tilemap_tile_size.0.y,
-                            3.0,
+                            tilemap_index.0,
                         ),
                         ..default()
                     })

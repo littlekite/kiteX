@@ -9,7 +9,7 @@ use bevy::{
 
 use super::components::{
     Tilemap, TilemapColliders, TilemapMapSize, TilemapSolidTextureIndices, TilemapTextureHandle,
-    TilemapTextureIndices, TilemapTileColor, TilemapTileSize
+    TilemapTextureIndices, TilemapTileColor, TilemapTileSize, TilemapZindex
 };
 
 #[derive(Bundle)]
@@ -23,7 +23,8 @@ pub struct TilemapBundle {
     colliders: TilemapColliders,
     tile_color: TilemapTileColor,
     #[bundle()]
-    spatial: SpatialBundle
+    spatial: SpatialBundle,
+    zindex: TilemapZindex
 }
 
 impl TilemapBundle {
@@ -33,7 +34,8 @@ impl TilemapBundle {
         map_size: UVec2,
         texture_index_map: Vec<Vec<u32>>,
         solid_texture_indices: Vec<u32>,
-        custom_tile_color: Option<Color>
+        custom_tile_color: Option<Color>,
+        zi:f32
     ) -> Self {
         assert!(!texture_index_map.is_empty());
         assert_eq!(map_size.y, texture_index_map.len() as u32);
@@ -53,7 +55,8 @@ impl TilemapBundle {
             solid_texture_indices: TilemapSolidTextureIndices(solid_texture_indices),
             colliders: TilemapColliders(vec![]),
             spatial: SpatialBundle::INHERITED_IDENTITY,
-            tile_color: TilemapTileColor(tile_color)
+            tile_color: TilemapTileColor(tile_color),
+            zindex: TilemapZindex(zi)
         }
     }
 }

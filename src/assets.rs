@@ -12,6 +12,8 @@ pub struct GameAssets {
     pub image_player: Handle<Image>,
     #[asset(path = "images/new3.png")]
     pub image_tileset: Handle<Image>,
+    #[asset(path = "images/new3_qj.png")]
+    pub image_qj_tileset: Handle<Image>, //前景
     #[asset(path = "images/enemy.png")]
     pub image_enemy: Handle<Image>,
 
