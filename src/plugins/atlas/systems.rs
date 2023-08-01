@@ -27,7 +27,7 @@ pub(super) fn build_atlases(
     let texture_atlas_tileset = TextureAtlas::from_grid(
         game_assets.image_tileset.clone(),
         Vec2::new(32.0, 32.0),
-        20,
+        30,
         12,
         None,
         None,
@@ -37,6 +37,24 @@ pub(super) fn build_atlases(
         game_assets.image_qj_tileset.clone(),
         Vec2::new(32.0, 32.0),
         20,
+        12,
+        None,
+        None,
+    );
+
+    let texture_atlas_sky_tileset = TextureAtlas::from_grid(
+        game_assets.image_sky_tileset.clone(),
+        Vec2::new(32.0, 32.0),
+        30,
+        12,
+        None,
+        None,
+    );
+
+    let texture_atlas_yun_tileset = TextureAtlas::from_grid(
+        game_assets.image_yun_tileset.clone(),
+        Vec2::new(32.0, 32.0),
+        30,
         12,
         None,
         None,
@@ -54,7 +72,9 @@ pub(super) fn build_atlases(
     commands.insert_resource(GameAtlases {
         player: texture_atlases.add(texture_atlas_player),
         tileset: texture_atlases.add(texture_atlas_tileset),
-        qj_tileset: texture_atlases.add(texture_atlas_qj_tileset), //前景瓦片
+        qj_tileset: texture_atlases.add(texture_atlas_qj_tileset), //前景 大树
+        sky_tileset: texture_atlases.add(texture_atlas_sky_tileset), //后景 天空
+        yun_tileset: texture_atlases.add(texture_atlas_yun_tileset), //后景 云
         enemy: texture_atlases.add(texture_atlas_enemy),
 
     });

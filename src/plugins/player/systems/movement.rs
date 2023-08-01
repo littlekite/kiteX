@@ -3,8 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 use bevy::{
-    prelude::{Input, KeyCode, Query, Rect, Res, Transform, Vec2, With, Without},
-    time::Time,
+    prelude::*,
+    time::Time, sprite::SpriteBundle,
 };
 
 use crate::plugins::{
@@ -18,9 +18,8 @@ use crate::plugins::{
     tilemap::components::TilemapColliders,
 };
 
-use bevy_xpbd_2d::prelude::*;
-
 pub fn player_movement_input(
+    mut commands: Commands,
     keyboard: Res<Input<KeyCode>>,
     mut query: Query<(&mut PlayerState, &mut PlayerDirection,&TilemapRoad,&Transform), With<Player>>,
 ) {
@@ -82,36 +81,68 @@ pub fn player_movement_input(
         let px = trans.translation.x;
         let py = trans.translation.y;
         let mut income = 1;//未进入范围
+        let mut postion_num = 1;//位置编号1 默认开始
+        let mut postion_next_x = 0.;
+        let mut postion_next_y = 0.;
+        
+        let mut num = 0;
         for sub_vec in &road.0{
+            num = num + 1;
             let next_x =  sub_vec[2];
             let next_y =  sub_vec[3];
             if px == sub_vec[0] { //启动
-                if (next_y+9.) == py { //直走
+                if next_y == py { //直走
                     new_player_direction = PlayerDirection::Right;
                 }
-                if (next_y+9.) > py { //斜走
+                if next_y > py { //斜走
                     new_player_direction = PlayerDirection::DownRight;
                 }
+                postion_next_x = next_x;
+                postion_next_y = next_y;
+
             }
+            
             if sub_vec[0] - px < 1.{ //进入X范围
-                println!("{}",py);
-                println!("{}",next_y);
+              
+                postion_num = num;
+                postion_next_x = next_x;
+                postion_next_y = next_y;
+
+                println!("player{}",py);
+                println!("next_position{}",postion_next_y);
+                
                 income = 2;
                 if sub_vec[1] == next_y { //Y轴没有变化
                     new_player_direction = PlayerDirection::Right;
                 } else {
-                    if (next_y+9.) < py { //
+                    if py - postion_next_y > 5.  { //
                         println!("ww");
                         new_player_direction = PlayerDirection::DownRight;
                     }
-                    if (next_y+9.) > py{ //
+                    
+                    if postion_next_y-py > 5. {
                         println!("ss");
                         new_player_direction = PlayerDirection::UpRight;
                     }
+                
                 }
             }
-              
+                 
         }
+        println!("{}",postion_num);
+        //标识下一步导航坐标
+        #[cfg(debug_assertions)]
+        commands
+            .spawn(SpriteBundle {
+                sprite: Sprite {
+                    color: Color::RED.with_a(100.0),
+                    custom_size: Some(Vec2::new(2.0,2.0)),
+                    ..default()
+                },
+                transform:Transform::from_xyz(postion_next_x,postion_next_y,100.),
+                ..default()
+            })
+            .insert(Name::from("next_position"));
         if income == 1{
             new_player_direction = PlayerDirection::Right;
         }

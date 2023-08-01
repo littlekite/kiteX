@@ -4,3 +4,4 @@
 // https://opensource.org/licenses/MIT
 pub mod colliders;
 pub mod tiles;
+pub mod movetiles;

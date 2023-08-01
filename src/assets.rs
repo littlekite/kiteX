@@ -14,6 +14,10 @@ pub struct GameAssets {
     pub image_tileset: Handle<Image>,
     #[asset(path = "images/new3_qj.png")]
     pub image_qj_tileset: Handle<Image>, //前景
+    #[asset(path = "images/new3_sky.png")]
+    pub image_sky_tileset: Handle<Image>, //天空
+    #[asset(path = "images/new3_yun.png")]
+    pub image_yun_tileset: Handle<Image>, //云
     #[asset(path = "images/enemy.png")]
     pub image_enemy: Handle<Image>,
 
