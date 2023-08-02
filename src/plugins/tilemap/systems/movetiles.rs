@@ -33,8 +33,8 @@ pub fn move_tiles(
             tile_transform.translation += sky_velocity.extend(0.0) * delta.delta_seconds();
             let (mut game_camera_transform) = game_camera_query
             .get_single_mut().expect("error");
-            println!("{}",game_camera_transform.translation.x);
-            println!("{}",tile_transform.translation.x);
+            //println!("{}",game_camera_transform.translation.x);
+            //println!("{}",tile_transform.translation.x);
             if game_camera_transform.translation.x - tile_transform.translation.x < -120. {
                 println!("aaaa");
                 tile_transform.translation.x = tile_transform.translation.x - 800.
