@@ -42,6 +42,12 @@ pub fn move_tiles(
             }
         
         }
+
+        if name.to_string() == "waterTilemap" {
+            let mo = Vec2::new(0.0, 1.0);
+            let sky_velocity = mo * 10.0 * delta.delta_seconds();
+            tile_transform.translation += sky_velocity.extend(0.0) * delta.delta_seconds();
+        }
     }
     
     

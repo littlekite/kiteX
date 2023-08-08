@@ -14,5 +14,6 @@ pub struct GameAtlases {
     pub qj_tileset: Handle<TextureAtlas>,
     pub sky_tileset: Handle<TextureAtlas>,
     pub yun_tileset: Handle<TextureAtlas>,
+    pub water_tileset: Handle<TextureAtlas>,
     pub enemy: Handle<TextureAtlas>
 }
