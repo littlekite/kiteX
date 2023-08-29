@@ -50,7 +50,7 @@ pub fn update_game_camera(
         game_camera_transform.translation = Vec3::new(
             x,
             y,
-            game_camera_transform.translation.z,
+            100.,
         );
         
         

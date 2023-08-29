@@ -60,14 +60,6 @@ pub(super) fn build_atlases(
         None,
     );
 
-    let texture_atlas_water_tileset = TextureAtlas::from_grid(
-        game_assets.image_water_tileset.clone(),
-        Vec2::new(32.0, 32.0),
-        30,
-        12,
-        None,
-        None,
-    );
 
     let texture_atlas_enemy = TextureAtlas::from_grid(
         game_assets.image_enemy.clone(),
@@ -84,7 +76,6 @@ pub(super) fn build_atlases(
         qj_tileset: texture_atlases.add(texture_atlas_qj_tileset), //前景 大树
         sky_tileset: texture_atlases.add(texture_atlas_sky_tileset), //后景 天空
         yun_tileset: texture_atlases.add(texture_atlas_yun_tileset), //后景 云
-        water_tileset: texture_atlases.add(texture_atlas_water_tileset), //前景 云
         enemy: texture_atlases.add(texture_atlas_enemy),
 
     });
